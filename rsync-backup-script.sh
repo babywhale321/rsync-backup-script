@@ -32,11 +32,10 @@ read -r localdirvar
 
 echo "----------------------------------------------------------------------------------------------------"
 echo "please make sure that everything looks right before continueing"
-echo "this is what the output will be: rsync -av$updatevar -e "ssh -p $portvar" $uservar@$ipvar:$dirvar $localdirvar"
-echo "Here is an example for proper syntax: rsync -av -e "ssh -p 22" root@123.123.321.321:/ /home/backups"
+echo "this is what the output will be: rsync -avA$updatevar --del -e "ssh -p $portvar" $uservar@$ipvar:$dirvar $localdirvar"
+echo "Here is an example for proper syntax: rsync -avA --del -e "ssh -p 22" root@123.123.321.321:/ /home/backups"
 echo "just press enter to execute rsync"
 read -r
 
 #Variables from user input is put into proper syntax for rsync
-
-rsync -av$updatevar -e "ssh -p $portvar" $uservar@$ipvar:$dirvar $localdirvar || echo "please check that your inputs are correct"
+rsync -avA$updatevar --del -e "ssh -p $portvar" $uservar@$ipvar:$dirvar $localdirvar || echo "please check that your inputs are correct"
