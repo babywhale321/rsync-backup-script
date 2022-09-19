@@ -1,21 +1,25 @@
 #!/bin/sh
 #Made By: BabyWhale
 
-#update check
+#user input that reflects if they are updateing an exsisting archive
 echo "Are you updating a current backup archive? (y/n)"
 read -r updatevar
 
-if [[ "${updatevar,,}" == "y" || "${updatevar,,}" == "yes" ]]; then updatevar="u"
-elif [[ "${updatevar,,}" == "n" || "${updatevar,,}" == "no" ]]; then updatevar=""
+lowerupdatevar=$(echo $updatevar | tr '[:upper:]' '[:lower:]')
+
+if [[ "$lowerupdatevar" == "y" || "$lowerupdatevar" == "yes" ]]; then updatevar="u"
+elif [[ "$lowerupdatevar" == "n" || "$lowerupdatevar" == "no" ]]; then updatevar=""
 fi
 echo " "
 
-#ACL check
+#user input that reflects if they want ACL to be saved in the archive
 echo "Would you want ACL permissions to be saved? (y/n)"
 read -r aclvar
 
-if [[ "${aclvar,,}" == "y" || "${aclvar,,}" == "yes" ]]; then aclvar="A"
-elif [[ "${aclvar,,}" == "n" || "${aclvar,,}" == "no" ]]; then aclvar=""
+loweraclvar=$(echo $aclvar | tr '[:upper:]' '[:lower:]')
+
+if [[ "$loweraclvar" == "y" || "$loweraclvar" == "yes" ]]; then aclvar="A"
+elif [[ "$loweraclvar" == "n" || "$loweraclvar" == "no" ]]; then aclvar=""
 fi
 echo " "
 
