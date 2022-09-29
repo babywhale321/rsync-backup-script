@@ -48,7 +48,8 @@ echo "please make sure that everything looks right before continueing"
 echo "this is what the output will be: rsync -av$aclvar$updatevar --del -e "ssh -p $portvar" $uservar@$ipvar:$dirvar $localdirvar"
 echo "Here is an example for proper syntax: rsync -avAu --del -e "ssh -p 22" root@123.123.321.321:/ /home/backups"
 echo " "
-read -p "press enter to execute rsync"
+echo "press enter to execute rsync"
+read -r emptyvar
 
 
 #Variables from user input is put into proper syntax for rsync
