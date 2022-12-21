@@ -51,13 +51,13 @@ clear
 
 echo "this is what the output will be: sshpass -p "$passwdvar" rsync -av$aclvar$updatevar --del -e "ssh -p $portvar" $uservar@$ipvar:$remotedirvar $localdirvar"
 echo "Here is an example for proper syntax: rsync -avAu --del -e "ssh -p 22" root@123.123.321.321:/ /home/backups"
-echo "press enter to execute rsync and a copy of the final script will be called rsync-backup-script.sh in this current directory"
+echo "press enter to execute rsync and a copy of the final script will be called rsync-backup.sh in this current directory"
 read -r emptyvar
 
 
-#Variables from user input is put into proper syntax for rsync and creates file called rsync-backup-script.sh
-rm rsync-backup-script.sh
+#Variables from user input is put into proper syntax for rsync and creates file called rsync-backup.sh
+rm rsync-backup.sh
 
-echo "sshpass -p \"$passwdvar\" rsync -av$aclvar$updatevar --del -e \"ssh -p $portvar\" $uservar@$ipvar:$remotedirvar $localdirvar" >> rsync-backup-script.sh
+echo "sshpass -p \"$passwdvar\" rsync -av$aclvar$updatevar --del -e \"ssh -p $portvar\" $uservar@$ipvar:$remotedirvar $localdirvar" >> rsync-backup.sh
 
 sshpass -p "$passwdvar" rsync -av$aclvar$updatevar --del -e "ssh -p $portvar" $uservar@$ipvar:$remotedirvar $localdirvar
