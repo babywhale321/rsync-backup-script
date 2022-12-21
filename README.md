@@ -6,7 +6,7 @@ This shell script is used to backup a Debian based distro using rsync
 
 1, User with root privileges on remote server
 
-2, apt install rsync wget -y
+2, apt install wget -y
 
 3, wget https://raw.githubusercontent.com/babywhale321/rsync-backup-script/main/rsync-backup-script.sh
 
