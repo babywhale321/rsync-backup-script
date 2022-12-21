@@ -10,7 +10,7 @@ This shell script is used to backup a Debian based distro using rsync
 
 3, wget https://raw.githubusercontent.com/babywhale321/rsync-backup-script/main/rsync-backup-script.sh
 
-4, chmod 700 rsync-backup-script.sh
+4, chmod +x rsync-backup-script.sh
 
 5, ./rsync-backup-script.sh or bash rsync-backup-script.sh
 
