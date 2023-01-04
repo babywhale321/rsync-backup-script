@@ -3,9 +3,11 @@ import subprocess
 
 while True:
     
+    #will try to install rsync and sshpass
     try:
         os.system("sudo apt install rsync sshpass")
-        
+    
+    #If installing fails then user gets an error message with an option to restart
     except:
         print("Failed to Install rsync and sshpass\n")
         restart_var = input("Press enter to restart or type the word 'exit' to exit the program\n")
@@ -14,7 +16,7 @@ while True:
         else: 
             continue
 
-
+    #rsync needed varibles that will be used later in program
     ip_var = input("What is the IPv4 address of the remote server?\n")
 
     port_var = input("What is the port number that ssh is listening to on the remote server?\n")
@@ -39,20 +41,23 @@ while True:
 
     else:
         del_var = ""
-
+        
+    #shows the user proper syntax of variables from above
     print("this is what the output will be: sshpass -p",passwd_var,"rsync -av" + str(del_var),"-e ssh -p",port_var,user_var + "@" + str(ip_var) + ":" + str(remotedir_var),localdir_var)
     print("The Proper example output is as follows: sshpass -p \"password123\" rsync -av --delete -e \"ssh -p 22\" root@123.123.321.321:/ /home/backups")
     print("A new file will be created under rsync-backup.sh in this current direcotry for furthor use.")
     input("Press enter to coninue")
     
+    #will try to make a file and then write to the file with the proper syntax for rsync
     try:
         
         newfile_var = open("rsync-backup.sh", "w")
         newfile_var.write("sshpass -p \"" + passwd_var + "\" rsync -av" + del_var + " -e \"ssh -p " + port_var + "\" " + user_var + "@" + ip_var + ":" + remotedir_var + " " + localdir_var)
         os.system("sudo chmod +x rsync-backup.sh")  
-        
+    
     except:
         
+        #If fails then user gets an error message with an option to restart
         print("1 or more variables that have been entered may not be correct.\n")
         print("Failed to save and write to rsync-backup.sh\n")
         restart_var = input("Press enter to restart or type the word 'exit' to exit the program\n")
@@ -60,7 +65,8 @@ while True:
             break
         else: 
             continue
-
+    
+    #if the user says yes then the subprocess will try to run the recently created rsync shell script
     askstart_var = input("Would you like to start this script now? (y/n)")
 
     askstart_var = askstart_var.lower()
