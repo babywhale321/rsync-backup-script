@@ -1,6 +1,17 @@
 # rsync-backup-script
 
-This script is used to backup a Debian based distro using rsync
+This script is used to backup a Debian based distro using rsync and sshpass.
+
+# Workflow ("Highlights")
+
+1, Installs rsync and sshpass 
+
+2, Asks user about various things for later use in rsync command.
+
+3, Saves rsync command under rsync-backup.sh to be used later.
+
+4, Prompt if user wants to start the rsync comman right away.
+
 
 # Tutorial
 
