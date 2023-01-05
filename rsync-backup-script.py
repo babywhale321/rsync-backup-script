@@ -1,4 +1,5 @@
 import subprocess
+import shlex
 
 while True:
     
@@ -16,6 +17,8 @@ while True:
             continue
 
     #rsync needed varibles that will be used later in program
+    print("\n")
+    
     ip_var = input("What is the IPv4 address of the remote server?\n")
 
     port_var = input("What is the port number that ssh is listening to on the remote server?\n")
@@ -30,6 +33,8 @@ while True:
     
     del_var = input("Would you like to delete files that are not on the sending side? (y/n)\n")
 
+    print("\n")
+    
     del_var = del_var.lower()
 
     if del_var == "y":
@@ -42,17 +47,18 @@ while True:
         del_var = ""
         
     #shows the user proper syntax of variables from above
-    print("this is what the output will be: sshpass -p",passwd_var,"rsync -av" + str(del_var),"-e ssh -p",port_var,user_var + "@" + str(ip_var) + ":" + str(remotedir_var),localdir_var)
+    print("this is what the output will be:","sshpass -p \"" + passwd_var + "\" rsync -av" + del_var + " -e \"ssh -p " + port_var + "\" " + user_var + "@" + ip_var + ":" + remotedir_var + " " + localdir_var)
     print("The Proper example output is as follows: sshpass -p \"password123\" rsync -av --delete -e \"ssh -p 22\" root@123.123.321.321:/ /home/backups")
-    print("A new file will be created under rsync-backup.sh in this current direcotry for furthor use.")
+    print("A new file will be created under rsync-backup.sh in this current direcotry for furthor use")
+    print("\n")
     input("Press enter to coninue")
     
     #will try to make a file and then write to the file with the proper syntax for rsync
     try:
         
         newfile_var = open("rsync-backup.sh", "w")
-        newfile_var.write("sshpass -p \"" + passwd_var + "\" rsync -av" + del_var + " -e \"ssh -p " + port_var + "\" " + user_var + "@" + ip_var + ":" + remotedir_var + " " + localdir_var)
         subprocess.run(["sudo", "chmod", "+x", "rsync-backup.sh"])
+        newfile_var.write("sshpass -p \"" + passwd_var + "\" rsync -av" + del_var + " -e \"ssh -p " + port_var + "\" " + user_var + "@" + ip_var + ":" + remotedir_var + " " + localdir_var)
         
     except:
         
@@ -64,34 +70,38 @@ while True:
             break
         else: 
             continue
-    
+        
     #if the user says yes then the subprocess will try to run the recently created rsync shell script
-    askstart_var = input("Would you like to start this script now? (y/n)")
-
-    askstart_var = askstart_var.lower()
+    command = ("sshpass -p \"" + passwd_var + "\" rsync -av" + del_var + " -e \"ssh -p " + port_var + "\" " + user_var + "@" + ip_var + ":" + remotedir_var + " " + localdir_var)
+    #split command from above
+    command = shlex.split(command)
     
-    if askstart_var == "y":
+    #if user inputs "y" or "yes" then the rsync command will start
+    ask_var = input("Would you like to start this script now? (y/n)\n")
+    
+    def yes_input(input_str):
+        return input_str.lower() in ["y", "yes"]
+    
+    
+    if yes_input(ask_var):
+        
         try:
-            subprocess.run(["sudo", "bash", "rsync-backup.sh"])
+            
+            subprocess.run(command)
             print("Thanks for using this program and the created rsync script is under rsync-backup.sh and can be used at anytime with sudo bash rsync-backup.sh")
             input("Press enter to exit")
             break
         
         except:
-            print("Failed to run rsync-backup.sh")
-            break
-
-    elif askstart_var == "yes":
-        try:
-            subprocess.run(["sudo", "bash", "rsync-backup.sh"])
-            print("Thanks for using this program and the created rsync script is under rsync-backup.sh and can be used at anytime with sudo bash rsync-backup.sh")
-            input("Press enter to exit")
-            break
-        
-        except:
-            print("Failed to run rsync-backup.sh")
-            break
-    
+            
+            print("An error has occured when trying to run rsync-backup.sh. please check your variables that you are entering.")
+            restart_var = input("Press enter to restart or type 'exit' to exit this program\n")
+            if restart_var == "exit":
+                break
+            else:
+                continue
+                
     else:
+        
         print("Thanks for using this program and the created rsync script is under rsync-backup.sh and can be used at anytime with sudo bash rsync-backup.sh")
         break
