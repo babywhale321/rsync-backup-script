@@ -1,11 +1,10 @@
-import os
 import subprocess
 
 while True:
     
     #will try to install rsync and sshpass
     try:
-        os.system("sudo apt install rsync sshpass")
+        subprocess.run(['sudo', 'apt', 'install', 'rsync', 'sshpass'])
     
     #If installing fails then user gets an error message with an option to restart
     except:
@@ -53,7 +52,7 @@ while True:
         
         newfile_var = open("rsync-backup.sh", "w")
         newfile_var.write("sshpass -p \"" + passwd_var + "\" rsync -av" + del_var + " -e \"ssh -p " + port_var + "\" " + user_var + "@" + ip_var + ":" + remotedir_var + " " + localdir_var)
-        os.system("sudo chmod +x rsync-backup.sh")  
+        subprocess.run(["sudo", "chmod", "+x", "rsync-backup.sh"])
     
     except:
         
@@ -73,7 +72,7 @@ while True:
     
     if askstart_var == "y":
         try:
-            print(subprocess.run(["sudo bash rsync-backup.sh"], shell=True))
+            subprocess.run(["sudo", "bash", "rsync-backup.sh"])
             print("Thanks for using this program and the created rsync script is under rsync-backup.sh and can be used at anytime with sudo bash rsync-backup.sh")
             input("Press enter to exit")
             break
@@ -84,7 +83,7 @@ while True:
 
     elif askstart_var == "yes":
         try:
-            print(subprocess.run(["sudo bash rsync-backup.sh"], shell=True))
+            subprocess.run(["sudo", "bash", "rsync-backup.sh"])
             print("Thanks for using this program and the created rsync script is under rsync-backup.sh and can be used at anytime with sudo bash rsync-backup.sh")
             input("Press enter to exit")
             break
