@@ -53,7 +53,7 @@ while True:
         newfile_var = open("rsync-backup.sh", "w")
         newfile_var.write("sshpass -p \"" + passwd_var + "\" rsync -av" + del_var + " -e \"ssh -p " + port_var + "\" " + user_var + "@" + ip_var + ":" + remotedir_var + " " + localdir_var)
         subprocess.run(["sudo", "chmod", "+x", "rsync-backup.sh"])
-    
+        
     except:
         
         #If fails then user gets an error message with an option to restart
