@@ -53,22 +53,32 @@ while True:
     print("\n")
     input("Press enter to coninue")
     
-    #will try to make a file and then write to the file with the proper syntax for rsync
-    try:
-        
+    
+    #fuctions for the next try and except
+    #removes then create the file with permissions and rsync syntax
+    #except is to just create and write permissions and rsync syntax
+    def newfilecreate():
         newfile_var = open("rsync-backup.sh", "w")
         subprocess.run(["sudo", "chmod", "+x", "rsync-backup.sh"])
         newfile_var.write("sshpass -p \"" + passwd_var + "\" rsync -av" + del_var + " -e \"ssh -p " + port_var + "\" " + user_var + "@" + ip_var + ":" + remotedir_var + " " + localdir_var)
+    def rmfile():
+        subprocess.run("sudo","rm","rsync-bachup.sh")
+        
+        
+    
+    #removes then create the file with permissions and rsync syntax
+    #except is to just create and write permissions and rsync syntax
+    try:
+        
+        rmfile()
+        newfilecreate()
+        
         
     except:
         
-        #If fails then user gets an error message with an option to restart
-        print("Failed to save and write to rsync-backup.sh\nYou may need to remove the file rsync-backup.sh if you have ran this script before.")
-        restart_var = input("Press enter to restart or type the word 'exit' to exit the program\n")
-        if restart_var == 'exit': 
-            break
-        else: 
-            continue
+        newfilecreate()
+
+        
         
     #if the user says yes then the subprocess will try to run the recently created rsync shell script
     command = ("sshpass -p \"" + passwd_var + "\" rsync -av" + del_var + " -e \"ssh -p " + port_var + "\" " + user_var + "@" + ip_var + ":" + remotedir_var + " " + localdir_var)
