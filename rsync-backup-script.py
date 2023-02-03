@@ -63,8 +63,7 @@ while True:
     except:
         
         #If fails then user gets an error message with an option to restart
-        print("1 or more variables that have been entered may not be correct.\n")
-        print("Failed to save and write to rsync-backup.sh\n")
+        print("Failed to save and write to rsync-backup.sh\nYou may need to remove the file rsync-backup.sh if you have ran this script before.")
         restart_var = input("Press enter to restart or type the word 'exit' to exit the program\n")
         if restart_var == 'exit': 
             break
