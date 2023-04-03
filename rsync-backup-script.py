@@ -31,7 +31,7 @@ while True:
 
     localdir_var = input("What is the local directory you are saving this to? /root/backups = an example\n")
     
-    del_var = input("Would you like to delete files that are not on the sending side? (y/n)\n")
+    del_var = input("Would you like to Delete files on the receiving side that don't exist on sender? (y/n)\n")
 
     print("\n")
     
